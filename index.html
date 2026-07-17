@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.discordapp.com/avatars/1472349310090875062/b85bbfdcbc1b084641e8baa78a3387bc.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.discordapp.com/avatars/1472349310090875062/b85bbfdcbc1b084641e8baa78a3387bc.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TECO Bot • Elite Circle Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <style>
+        /* ── reset & root ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --bg-dark: #0a0a0f;
             --bg-card: rgba(18, 16, 24, 0.85);
@@ -26,8 +33,6 @@
             --radius: 16px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Inter', system-ui, sans-serif;
             background: var(--bg-dark);
@@ -36,36 +41,40 @@
             line-height: 1.6;
         }
 
-        /* Rainbow Gradient */
+        /* ── rainbow border ── */
         .rainbow-border {
             position: relative;
         }
-
         .rainbow-border::before {
             content: '';
             position: absolute;
             inset: -2px;
             background: linear-gradient(45deg,
-                #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+                    #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
             background-size: 400% 400%;
             animation: rainbowShift 12s ease infinite;
             border-radius: inherit;
             z-index: -1;
             opacity: 0.7;
         }
-
         @keyframes rainbowShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
+        /* ── layout ── */
         .dashboard {
             max-width: 1400px;
             margin: 0 auto;
             padding: 24px;
         }
 
-        /* Header */
+        /* ── header ── */
         .header {
             display: flex;
             justify-content: space-between;
@@ -76,14 +85,14 @@
             border-radius: var(--radius);
             margin-bottom: 24px;
             backdrop-filter: blur(20px);
+            flex-wrap: wrap;
+            gap: 16px;
         }
-
         .brand {
             display: flex;
             align-items: center;
             gap: 14px;
         }
-
         .brand-icon {
             width: 52px;
             height: 52px;
@@ -98,7 +107,6 @@
             overflow: hidden;
             position: relative;
         }
-
         .brand-icon img {
             width: 100%;
             height: 100%;
@@ -107,7 +115,6 @@
             position: relative;
             z-index: 1;
         }
-
         .brand-info h1 {
             font-size: 1.5rem;
             font-weight: 700;
@@ -116,7 +123,6 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.02em;
         }
-
         .brand-info span {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -127,8 +133,8 @@
         .header-actions {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
         }
-
         .header-btn {
             padding: 10px 20px;
             background: rgba(255, 215, 0, 0.1);
@@ -139,8 +145,11 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-
         .header-btn:hover {
             background: rgba(255, 215, 0, 0.2);
             box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
@@ -158,7 +167,6 @@
             font-weight: 600;
             font-size: 0.85rem;
         }
-
         .status-dot {
             width: 10px;
             height: 10px;
@@ -166,25 +174,29 @@
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
-
         .status-dot.offline {
             background: var(--danger);
             animation: none;
         }
-
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
         }
 
-        /* Stats Grid */
+        /* ── stats ── */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
-
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -193,24 +205,20 @@
             backdrop-filter: blur(20px);
             transition: all 0.3s;
         }
-
         .stat-card:hover {
             border-color: rgba(255, 215, 0, 0.25);
             box-shadow: 0 8px 30px rgba(255, 215, 0, 0.08);
         }
-
         .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
         }
-
         .stat-header i {
             font-size: 1.1rem;
             color: var(--gold-muted);
         }
-
         .stat-value {
             font-size: 2.2rem;
             font-weight: 700;
@@ -219,42 +227,39 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .stat-label {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 4px;
         }
-
         .stat-change {
             font-size: 0.75rem;
             padding: 4px 10px;
             border-radius: 100px;
         }
-
         .stat-change.positive {
             background: rgba(34, 197, 94, 0.15);
             color: var(--success);
         }
-
         .stat-change.negative {
             background: rgba(239, 68, 68, 0.15);
             color: var(--danger);
         }
 
-        /* Main Grid */
+        /* ── main grid ── */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 24px;
         }
-
         @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; }
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* Panels */
+        /* ── panels ── */
         .panel {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -262,7 +267,6 @@
             backdrop-filter: blur(20px);
             overflow: hidden;
         }
-
         .panel-header {
             display: flex;
             justify-content: space-between;
@@ -271,7 +275,6 @@
             border-bottom: 1px solid var(--border);
             background: rgba(255, 215, 0, 0.02);
         }
-
         .panel-title {
             display: flex;
             align-items: center;
@@ -279,9 +282,9 @@
             font-weight: 600;
             font-size: 0.95rem;
         }
-
-        .panel-title i { color: var(--gold-muted); }
-
+        .panel-title i {
+            color: var(--gold-muted);
+        }
         .panel-badge {
             font-size: 0.7rem;
             padding: 4px 10px;
@@ -290,10 +293,11 @@
             border-radius: 100px;
             border: 1px solid var(--border);
         }
+        .panel-body {
+            padding: 20px 24px;
+        }
 
-        .panel-body { padding: 20px 24px; }
-
-        /* Details/Summary */
+        /* ── details / summary ── */
         details {
             margin-bottom: 10px;
             border: 1px solid rgba(255, 215, 0, 0.08);
@@ -301,10 +305,12 @@
             overflow: hidden;
             transition: border-color 0.3s;
         }
-
-        details:hover { border-color: rgba(255, 215, 0, 0.15); }
-        details:last-child { margin-bottom: 0; }
-
+        details:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+        }
+        details:last-child {
+            margin-bottom: 0;
+        }
         summary {
             padding: 12px 16px;
             background: rgba(255, 255, 255, 0.02);
@@ -315,11 +321,14 @@
             align-items: center;
             gap: 10px;
             transition: background 0.2s;
+            list-style: none;
         }
-
-        summary:hover { background: rgba(255, 215, 0, 0.04); }
-        summary::-webkit-details-marker { display: none; }
-
+        summary:hover {
+            background: rgba(255, 215, 0, 0.04);
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
         summary::after {
             content: '\f078';
             font-family: 'Font Awesome 6 Free';
@@ -329,10 +338,12 @@
             color: var(--gold-muted);
             transition: transform 0.2s;
         }
-
-        details[open] summary::after { transform: rotate(180deg); }
-        details[open] summary { border-bottom: 1px solid rgba(255, 215, 0, 0.08); }
-
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+        details[open] summary {
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+        }
         .details-content {
             padding: 14px 16px;
             font-size: 0.85rem;
@@ -340,7 +351,7 @@
             line-height: 1.8;
         }
 
-        /* Log Entries */
+        /* ── logs ── */
         .log-entry {
             display: flex;
             gap: 12px;
@@ -349,24 +360,37 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
         }
-
-        .log-entry:last-child { border-bottom: none; }
-
-        .log-time { color: var(--text-muted); white-space: nowrap; }
-
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        .log-time {
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
         .log-level {
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.7rem;
             font-weight: 600;
         }
+        .log-level.info {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--gold);
+        }
+        .log-level.success {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+        .log-level.warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+        .log-level.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
 
-        .log-level.info { background: rgba(255, 215, 0, 0.15); color: var(--gold); }
-        .log-level.success { background: rgba(34, 197, 94, 0.15); color: var(--success); }
-        .log-level.warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
-        .log-level.error { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
-
-        /* BDFD Commands */
+        /* ── commands ── */
         .command-item {
             display: flex;
             justify-content: space-between;
@@ -374,21 +398,19 @@
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-
-        .command-item:last-child { border-bottom: none; }
-
+        .command-item:last-child {
+            border-bottom: none;
+        }
         .command-name {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: var(--gold);
         }
-
         .command-desc {
             font-size: 0.8rem;
             color: var(--text-muted);
             margin-top: 2px;
         }
-
         .command-tag {
             font-size: 0.7rem;
             padding: 4px 8px;
@@ -397,7 +419,7 @@
             color: var(--gold-muted);
         }
 
-        /* BDFD Variables Panel */
+        /* ── variables ── */
         .variable-item {
             display: flex;
             justify-content: space-between;
@@ -405,15 +427,14 @@
             padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-
-        .variable-item:last-child { border-bottom: none; }
-
+        .variable-item:last-child {
+            border-bottom: none;
+        }
         .variable-name {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: var(--gold-light);
         }
-
         .variable-value {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
@@ -423,13 +444,12 @@
             color: var(--text-muted);
         }
 
-        /* Quick Actions */
+        /* ── quick actions ── */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-
         .action-btn {
             display: flex;
             flex-direction: column;
@@ -446,41 +466,44 @@
             transition: all 0.25s ease;
             cursor: pointer;
         }
-
         .action-btn:hover {
             background: rgba(255, 215, 0, 0.08);
             border-color: rgba(255, 215, 0, 0.3);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.1);
         }
-
-        .action-btn i { font-size: 1.4rem; color: var(--gold-muted); }
-        .action-btn:hover i { color: var(--gold); }
-
+        .action-btn i {
+            font-size: 1.4rem;
+            color: var(--gold-muted);
+        }
+        .action-btn:hover i {
+            color: var(--gold);
+        }
         .action-btn.danger:hover {
             background: rgba(239, 68, 68, 0.1);
             border-color: rgba(239, 68, 68, 0.3);
         }
-
-        .action-btn.danger:hover i { color: var(--danger); }
-
+        .action-btn.danger:hover i {
+            color: var(--danger);
+        }
         .action-btn.success:hover {
             background: rgba(34, 197, 94, 0.1);
             border-color: rgba(34, 197, 94, 0.3);
         }
+        .action-btn.success:hover i {
+            color: var(--success);
+        }
 
-        .action-btn.success:hover i { color: var(--success); }
-
-        /* Activity Feed */
+        /* ── activity ── */
         .activity-item {
             display: flex;
             gap: 14px;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-
-        .activity-item:last-child { border-bottom: none; }
-
+        .activity-item:last-child {
+            border-bottom: none;
+        }
         .activity-icon {
             width: 36px;
             height: 36px;
@@ -491,20 +514,19 @@
             color: var(--gold-muted);
             flex-shrink: 0;
         }
-
-        .activity-content { flex: 1; }
-
+        .activity-content {
+            flex: 1;
+        }
         .activity-text {
             font-size: 0.85rem;
             margin-bottom: 3px;
         }
-
         .activity-time {
             font-size: 0.75rem;
             color: var(--text-muted);
         }
 
-        /* Settings Row */
+        /* ── settings ── */
         .setting-row {
             display: flex;
             justify-content: space-between;
@@ -512,21 +534,18 @@
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-
-        .setting-row:last-child { border-bottom: none; }
-
+        .setting-row:last-child {
+            border-bottom: none;
+        }
         .setting-info h4 {
             font-size: 0.88rem;
             font-weight: 500;
             margin-bottom: 2px;
         }
-
         .setting-info p {
             font-size: 0.78rem;
             color: var(--text-muted);
         }
-
-        /* Toggle Switch */
         .toggle {
             position: relative;
             width: 44px;
@@ -535,10 +554,11 @@
             border-radius: 100px;
             cursor: pointer;
             transition: background 0.3s;
+            flex-shrink: 0;
         }
-
-        .toggle.active { background: var(--gold); }
-
+        .toggle.active {
+            background: var(--gold);
+        }
         .toggle::after {
             content: '';
             position: absolute;
@@ -550,10 +570,11 @@
             border-radius: 50%;
             transition: transform 0.3s;
         }
+        .toggle.active::after {
+            transform: translateX(20px);
+        }
 
-        .toggle.active::after { transform: translateX(20px); }
-
-        /* Progress Bar */
+        /* ── progress ── */
         .progress-bar {
             height: 6px;
             background: rgba(255, 255, 255, 0.06);
@@ -561,23 +582,18 @@
             overflow: hidden;
             margin-top: 10px;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
             border-radius: 100px;
         }
 
-        /* Full Width */
-        .full-panel { grid-column: 1 / -1; }
-
-        /* Guilds Grid */
+        /* ── guilds ── */
         .guilds-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 12px;
         }
-
         .guild-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 215, 0, 0.06);
@@ -586,12 +602,10 @@
             text-align: center;
             transition: all 0.25s;
         }
-
         .guild-card:hover {
             border-color: rgba(255, 215, 0, 0.2);
             background: rgba(255, 215, 0, 0.03);
         }
-
         .guild-icon {
             width: 48px;
             height: 48px;
@@ -604,19 +618,17 @@
             color: #0a0a0f;
             font-size: 1.1rem;
         }
-
         .guild-name {
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 4px;
         }
-
         .guild-members {
             font-size: 0.75rem;
             color: var(--text-muted);
         }
 
-        /* Footer */
+        /* ── footer ── */
         .footer {
             text-align: center;
             padding: 24px;
@@ -625,7 +637,6 @@
             border-top: 1px solid var(--border);
             margin-top: 24px;
         }
-
         .footer-version {
             display: inline-block;
             padding: 4px 12px;
@@ -638,21 +649,35 @@
             color: var(--gold-muted);
         }
 
-        /* Responsive */
+        /* ── responsive ── */
         @media (max-width: 768px) {
-            .header { flex-direction: column; gap: 16px; text-align: center; }
-            .header-actions { width: 100%; justify-content: center; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .quick-actions { grid-template-columns: 1fr; }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
         }
-
         @media (max-width: 480px) {
-            .dashboard { padding: 16px; }
-            .stats-grid { grid-template-columns: 1fr; }
+            .dashboard {
+                padding: 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
-
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
             }
@@ -661,7 +686,8 @@
 </head>
 <body>
     <div class="dashboard">
-        <!-- Header -->
+
+        <!-- ═══ HEADER ═══ -->
         <header class="header">
             <div class="brand">
                 <div class="brand-icon rainbow-border">
@@ -672,21 +698,25 @@
                     <span>The Official Elite Circle Bot</span>
                 </div>
             </div>
+
             <div class="header-actions">
-                <button class="header-btn" onclick="action('invite')">
+                <!-- Invite button → OAuth2 URL -->
+                <a class="header-btn" href="https://discord.com/oauth2/authorize?client_id=1472349310090875062" target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-plus"></i> Invite
-                </button>
-                <button class="header-btn" onclick="action('support')">
+                </a>
+                <!-- Support button → Discord server -->
+                <a class="header-btn" href="https://discord.gg/hCKsWVE7m9" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-discord"></i> Support
-                </button>
+                </a>
             </div>
+
             <div class="status-indicator" id="statusIndicator">
                 <span class="status-dot" id="statusDot"></span>
                 <span id="statusText">Online</span>
             </div>
         </header>
 
-        <!-- Stats -->
+        <!-- ═══ STATS ═══ -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-header">
@@ -722,9 +752,10 @@
             </div>
         </div>
 
-        <!-- Main Grid -->
+        <!-- ═══ MAIN GRID ═══ -->
         <div class="main-grid">
-            <!-- Bot Logs (unchanged) -->
+
+            <!-- Bot Logs -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -816,7 +847,7 @@
                 </div>
             </div>
 
-            <!-- BDFD Commands (unchanged) -->
+            <!-- BDFD Commands -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -871,7 +902,7 @@
                 </div>
             </div>
 
-            <!-- Quick Actions (unchanged) -->
+            <!-- Quick Actions -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -901,7 +932,7 @@
                 </div>
             </div>
 
-            <!-- Recent Activity (unchanged) -->
+            <!-- Recent Activity -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -949,7 +980,7 @@
                 </div>
             </div>
 
-            <!-- Top Guilds (now dynamic) -->
+            <!-- Top Guilds (dynamic) -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -960,17 +991,16 @@
                 </div>
                 <div class="panel-body">
                     <div class="guilds-grid" id="guildCards">
-                        <!-- Will be populated by JS -->
                         <div class="guild-card">
                             <div class="guild-icon" id="guildIcon">EC</div>
-                            <div class="guild-name" id="guildName">Loading...</div>
+                            <div class="guild-name" id="guildName">Loading…</div>
                             <div class="guild-members" id="guildMembers">–</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- BDFD Variables (unchanged) -->
+            <!-- JSON Database -->
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -1007,7 +1037,7 @@
                 </div>
             </div>
 
-            <!-- Settings Panel (unchanged) -->
+            <!-- Settings Panel -->
             <div class="panel full-panel">
                 <div class="panel-header">
                     <div class="panel-title">
@@ -1129,7 +1159,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- ═══ FOOTER ═══ -->
         <footer class="footer">
             <span class="footer-version">v2.4.0</span>
             <span>TECO Bot Dashboard · Powered by BDFD · Elite Circle © 2026</span>
@@ -1137,11 +1167,10 @@
     </div>
 
     <script>
-        // =============== API CONFIG ===============
-        // 👇 Set this to your backend URL (Render, Railway, etc.)
+        // ─── API CONFIG ────────────────────────────────────────────────
         const API_BASE_URL = 'https://teco-bot-backend.onrender.com';
 
-        // =============== DOM Elements ===============
+        // ─── DOM refs ──────────────────────────────────────────────────
         const statTotal = document.getElementById('statTotalMembers');
         const statOnline = document.getElementById('statOnlineMembers');
         const statChannels = document.getElementById('statChannels');
@@ -1150,12 +1179,11 @@
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
         const statusIndicator = document.getElementById('statusIndicator');
-
         const guildName = document.getElementById('guildName');
         const guildMembers = document.getElementById('guildMembers');
         const guildIcon = document.getElementById('guildIcon');
 
-        // =============== Helper Functions ===============
+        // ─── helpers ──────────────────────────────────────────────────
         function updateStatus(connected) {
             if (connected) {
                 statusDot.className = 'status-dot';
@@ -1192,7 +1220,6 @@
             const online = data.memberBreakdown?.online || 0;
             const boost = data.boost?.level || 0;
             guildMembers.textContent = `${total} members · ${online} online · Boost ${boost}`;
-            // Set icon to first letters of name
             if (data.name) {
                 const words = data.name.split(' ');
                 let initials = words.map(w => w[0]).join('').toUpperCase().slice(0, 2);
@@ -1204,39 +1231,31 @@
         function updatePing(pingMs) {
             if (pingMs !== undefined) {
                 statPing.textContent = pingMs + 'ms';
-                // Change the "change" badge to something like "stable" or show difference
                 pingChange.textContent = 'live';
                 pingChange.className = 'stat-change positive';
             }
         }
 
-        // =============== Fetch Functions ===============
+        // ─── fetch ─────────────────────────────────────────────────────
         async function fetchDashboardData() {
             try {
-                // Fetch guild data
                 const guildResp = await fetch(`${API_BASE_URL}/api/guild`);
                 if (!guildResp.ok) throw new Error(`Guild API error: ${guildResp.status}`);
                 const guildData = await guildResp.json();
-
-                // Update stats and guild info
                 updateStats(guildData);
                 updateGuildInfo(guildData);
 
-                // Fetch status (ping)
                 const statusResp = await fetch(`${API_BASE_URL}/api/status`);
                 if (statusResp.ok) {
                     const statusData = await statusResp.json();
                     updateStatus(statusData.status === 'connected');
-                    if (statusData.ping !== undefined) {
-                        updatePing(statusData.ping);
-                    }
+                    if (statusData.ping !== undefined) updatePing(statusData.ping);
                 } else {
                     updateStatus(false);
                 }
             } catch (err) {
                 console.error('Dashboard fetch error:', err);
                 updateStatus(false);
-                // Show fallback values
                 statTotal.textContent = '?';
                 statOnline.textContent = '?';
                 statChannels.textContent = '?';
@@ -1246,24 +1265,21 @@
             }
         }
 
-        // =============== Initial Load & Auto-Refresh ===============
+        // ─── init + auto-refresh ──────────────────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
             fetchDashboardData();
-            // Refresh every 60 seconds (matches backend)
             setInterval(fetchDashboardData, 60000);
         });
 
-        // =============== Existing Action Function ===============
+        // ─── action (quick buttons) ───────────────────────────────────
         function action(type) {
             const messages = {
-                invite: 'Opening Discord invite link...',
-                support: 'Opening support server...',
-                sync: 'Syncing JSON database...',
-                backup: 'Creating backup...',
-                logs: 'Preparing log export...',
-                reset: 'Clearing cache...'
+                sync: 'Syncing JSON database…',
+                backup: 'Creating backup…',
+                logs: 'Preparing log export…',
+                reset: 'Clearing cache…'
             };
-            console.log(`%c[TECO Bot] ${messages[type]}`, 'color: #ffd700; font-weight: bold;');
+            console.log(`%c[TECO Bot] ${messages[type] || type}`, 'color: #ffd700; font-weight: bold;');
         }
 
         console.log('%c TECO Bot Dashboard v2.4.0 (Live API) ', 'background: linear-gradient(90deg, #b8860b, #ffd700, #ffe566); color: #0a0a0f; padding: 8px 16px; border-radius: 8px; font-weight: bold;');
