@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: teco-bot-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false          # You'll set this manually in the Render dashboard
+      - key: GUILD_ID
+        sync: false          # You'll set this manually
+      - key: PORT
+        value: 3000          # (Render will override this with its own port, but kept for reference)
