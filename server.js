@@ -12,20 +12,9 @@ const cors = require('cors');
 // ============================================
 
 const CONFIG = {
-    // Your Discord Bot Token (keep this secret!)
-    DISCORD_TOKEN: 'YOUR_BOT_TOKEN_HERE',
-
-    // Your Guild/Server ID
-    GUILD_ID: 'YOUR_GUILD_ID_HERE',
-
-    // Channel IDs for specific stats (optional)
-    CHANNEL_IDS: {
-        totalMembers: 'MEMBER_COUNT_CHANNEL_ID',
-        onlineMembers: 'ONLINE_COUNT_CHANNEL_ID'
-    },
-
-    // Port for the API server
-    PORT: 3000
+    DISCORD_TOKEN: process.env.DISCORD_TOKEN,
+    GUILD_ID: process.env.GUILD_ID,
+    PORT: process.env.PORT || 3000
 };
 
 // ============================================
