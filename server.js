@@ -6,14 +6,20 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // 👈 ADDED: for serving the dashboard HTML
 
 // ============================================
 // CONFIGURATION - SET YOUR VALUES HERE
 // ============================================
 
 const CONFIG = {
+    // Your Discord Bot Token (keep this secret!)
     DISCORD_TOKEN: process.env.DISCORD_TOKEN,
+
+    // Your Guild/Server ID
     GUILD_ID: process.env.GUILD_ID,
+
+    // Port for the API server
     PORT: process.env.PORT || 3000
 };
 
@@ -166,6 +172,15 @@ app.use((req, res, next) => {
 });
 
 // ============================================
+// SERVE DASHBOARD HTML (NEW)
+// ============================================
+
+// Serve the dashboard at the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// ============================================
 // API ENDPOINTS
 // ============================================
 
@@ -306,6 +321,8 @@ app.listen(CONFIG.PORT, () => {
 ║   • GET  /api/roles    - Role distribution              ║
 ║   • GET  /api/channels - Channel statistics             ║
 ║   • POST /api/refresh  - Force data refresh            ║
+║                                                           ║
+║   📄 Dashboard available at: /                          ║
 ║                                                           ║
 ║   Server running on port ${CONFIG.PORT}                        ║
 ║                                                           ║
